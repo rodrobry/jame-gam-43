@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var speed: float = 100.0
+@export var speed: float = 80.0
 @export var attack_range: float = 15.0
 @onready var attack_timer: Timer = $Timer
 
