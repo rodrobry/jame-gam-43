@@ -6,7 +6,7 @@ extends CharacterBody2D
 
 const BRUSH = preload("res://scenes/brush.tscn")
 
-var numBrushes = 1
+var numBrushes = 5
 
 signal took_damage 
 
@@ -49,4 +49,4 @@ func take_damage(damage: int) -> void:
 	took_damage.emit(damage)
 	
 func _on_timer_timeout() -> void:
-	animated_sprite_2d.modulate = Color(1, 1, 1) # Reddish
+	animated_sprite_2d.modulate = Color(1, 1, 1) # Reset color

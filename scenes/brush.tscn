@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://d3p421wa3wshs"]
+[gd_scene load_steps=12 format=3 uid="uid://d3p421wa3wshs"]
 
 [ext_resource type="Script" uid="uid://dmtfd2y8dd1b4" path="res://scripts/brush.gd" id="1_mqrhx"]
 [ext_resource type="Texture2D" uid="uid://brsegda3nb1kp" path="res://sprites/brush.png" id="1_taygo"]
+[ext_resource type="Texture2D" uid="uid://chmgsn48et56n" path="res://sprites/base_dirt_sheet.png" id="3_pgixs"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tbgi4"]
 radius = 9.0
@@ -44,6 +45,29 @@ _data = {
 &"new_animation": SubResource("Animation_mqrhx")
 }
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_pgixs"]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_pgixs"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_iyf5p"]
+gradient = SubResource("Gradient_pgixs")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pgixs"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector3(-1, 0, 0)
+spread = 90.0
+gravity = Vector3(0, -98, 0)
+color_ramp = SubResource("GradientTexture1D_iyf5p")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
 [node name="Brush" type="Area2D"]
 z_index = 2
 script = ExtResource("1_mqrhx")
@@ -60,6 +84,16 @@ libraries = {
 &"": SubResource("AnimationLibrary_iyf5p")
 }
 autoplay = "new_animation"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_pgixs")
+emitting = false
+amount = 4
+texture = ExtResource("3_pgixs")
+lifetime = 0.5
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_pgixs")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
