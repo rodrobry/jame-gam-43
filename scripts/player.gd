@@ -4,7 +4,18 @@ extends CharacterBody2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var timer: Timer = $Timer
 
+const BRUSH = preload("res://scenes/brush.tscn")
+
+var numBrushes = 1
+
 signal took_damage 
+
+func _ready() -> void:
+	for i in numBrushes:
+		var startTheta = i * 2.0 * PI / numBrushes
+		var newBrush = BRUSH.instantiate()
+		newBrush.theta = startTheta
+		add_child(newBrush)
 
 func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement.

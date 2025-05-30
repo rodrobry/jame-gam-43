@@ -1,11 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://dr0qixgnltvxf"]
+[gd_scene load_steps=15 format=3 uid="uid://dr0qixgnltvxf"]
 
 [ext_resource type="Script" uid="uid://dwy3ddt05p4la" path="res://scripts/spawner.gd" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://c2ei25u4ahdmw" path="res://scripts/player.gd" id="1_sugp2"]
 [ext_resource type="Script" uid="uid://q6q1s6tvucth" path="res://scenes/health_controller.gd" id="1_tbgi4"]
 [ext_resource type="Texture2D" uid="uid://y2lb25mru757" path="res://sprites/Charm-16x16.png" id="2_tbgi4"]
 [ext_resource type="Texture2D" uid="uid://k8qdrka7hnwr" path="res://sprites/base_human_sheet.png" id="3_sugp2"]
-[ext_resource type="PackedScene" uid="uid://d3p421wa3wshs" path="res://scenes/brush.tscn" id="6_tefeu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]
 size = Vector2(5, 216)
@@ -96,6 +95,7 @@ texture = ExtResource("2_tbgi4")
 script = ExtResource("1_jyhfs")
 
 [node name="Timer" type="Timer" parent="Spawner"]
+wait_time = 1.5
 autostart = true
 
 [node name="Bounds" type="StaticBody2D" parent="."]
@@ -135,9 +135,6 @@ animation = &"idle"
 autoplay = "idle"
 
 [node name="Timer" type="Timer" parent="Player"]
-
-[node name="Brush" parent="Player" instance=ExtResource("6_tefeu")]
-position = Vector2(23, -2)
 
 [connection signal="timeout" from="HealthController/Timer" to="HealthController" method="_on_timer_timeout"]
 [connection signal="timeout" from="Spawner/Timer" to="Spawner" method="_on_timer_timeout"]

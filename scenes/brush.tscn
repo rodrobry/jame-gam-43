@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://d3p421wa3wshs"]
+[gd_scene load_steps=7 format=3 uid="uid://d3p421wa3wshs"]
 
+[ext_resource type="Script" uid="uid://dmtfd2y8dd1b4" path="res://scripts/brush.gd" id="1_mqrhx"]
 [ext_resource type="Texture2D" uid="uid://brsegda3nb1kp" path="res://sprites/brush.png" id="1_taygo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tbgi4"]
@@ -45,6 +46,7 @@ _data = {
 
 [node name="Brush" type="Area2D"]
 z_index = 2
+script = ExtResource("1_mqrhx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -58,3 +60,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_iyf5p")
 }
 autoplay = "new_animation"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
