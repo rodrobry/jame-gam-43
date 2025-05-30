@@ -113,4 +113,7 @@ sprite_frames = SubResource("SpriteFrames_tipki")
 animation = &"idle"
 autoplay = "idle"
 
+[node name="Timer" type="Timer" parent="Player"]
+
 [connection signal="timeout" from="Spawner/Timer" to="Spawner" method="_on_timer_timeout"]
+[connection signal="timeout" from="Player/Timer" to="Player" method="_on_timer_timeout"]

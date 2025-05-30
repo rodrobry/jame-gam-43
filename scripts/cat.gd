@@ -32,7 +32,7 @@ func _physics_process(delta: float) -> void:
 func attack():
 	player.take_damage(1)
 	animated_sprite_2d.play("attack")
-	attack_timer.start()
+	attack_timer.start(1.2)
 	attack_on_cooldown = true
 
 func _on_timer_timeout() -> void:

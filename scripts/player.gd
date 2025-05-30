@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @export var speed: float = 100.0
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var timer: Timer = $Timer
 
 var health = 3
 
@@ -29,8 +30,14 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func take_damage(damage: int) -> void:
-	print("took " + str(damage) + " damage")
+	# Flash the player sprite red, on timeout changes back
+	animated_sprite_2d.modulate = Color(0.9, 0.4, 0.4) # Reddish
+	timer.start(0.15)
+	
+	# Decrease health and reset level if out of health
 	health -= damage
 	if health <= 0:
 		get_tree().reload_current_scene()
 	
+func _on_timer_timeout() -> void:
+	animated_sprite_2d.modulate = Color(1, 1, 1) # Reddish
