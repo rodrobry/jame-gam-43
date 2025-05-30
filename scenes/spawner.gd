@@ -9,11 +9,15 @@ var spawn_side : Sides
 
 const CAT = preload("res://scenes/cat.tscn")
 
+func _ready() -> void:
+	spawn_enemy()
+	timer.start
+
 func _on_timer_timeout():
-	spawn_enemy(position)
+	spawn_enemy()
 	timer.start()
 	
-func spawn_enemy(position: Vector2):
+func spawn_enemy():
 	var enemy = CAT.instantiate()
 	enemy.global_position = generate_spawn_position()
 	enemy.player = player

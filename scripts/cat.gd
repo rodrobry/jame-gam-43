@@ -5,7 +5,7 @@ extends CharacterBody2D
 
 var player: AnimatableBody2D
 
-@onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 func _process(delta: float) -> void:
 	# Check direction towards player
@@ -13,9 +13,9 @@ func _process(delta: float) -> void:
 	
 	# Flip Sprite
 	if direction.x >= 0:
-		sprite_2d.flip_h = false
+		animated_sprite_2d.flip_h = false
 	else:
-		sprite_2d.flip_h = true
+		animated_sprite_2d.flip_h = true
 		
 	
 	# Don't move if close enough
