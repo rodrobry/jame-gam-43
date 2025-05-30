@@ -4,7 +4,7 @@ extends CharacterBody2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var timer: Timer = $Timer
 
-var health = 3
+signal took_damage 
 
 func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement.
@@ -34,10 +34,8 @@ func take_damage(damage: int) -> void:
 	animated_sprite_2d.modulate = Color(0.9, 0.4, 0.4) # Reddish
 	timer.start(0.15)
 	
-	# Decrease health and reset level if out of health
-	health -= damage
-	if health <= 0:
-		get_tree().reload_current_scene()
+	# Signal damage taken to health controller
+	took_damage.emit(damage)
 	
 func _on_timer_timeout() -> void:
 	animated_sprite_2d.modulate = Color(1, 1, 1) # Reddish

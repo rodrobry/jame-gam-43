@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://dr0qixgnltvxf"]
+[gd_scene load_steps=15 format=3 uid="uid://dr0qixgnltvxf"]
 
 [ext_resource type="Script" uid="uid://dwy3ddt05p4la" path="res://scripts/spawner.gd" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://c2ei25u4ahdmw" path="res://scripts/player.gd" id="1_sugp2"]
-[ext_resource type="Script" uid="uid://day2hkyp03gon" path="res://scripts/game_controller.gd" id="1_tbgi4"]
+[ext_resource type="Script" uid="uid://q6q1s6tvucth" path="res://scenes/health_controller.gd" id="1_tbgi4"]
+[ext_resource type="Texture2D" uid="uid://y2lb25mru757" path="res://sprites/Charm-16x16.png" id="2_tbgi4"]
 [ext_resource type="Texture2D" uid="uid://k8qdrka7hnwr" path="res://sprites/base_human_sheet.png" id="3_sugp2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]
@@ -68,8 +69,27 @@ animations = [{
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
 
-[node name="GameController" type="Node" parent="."]
+[node name="HealthController" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_tbgi4")
+
+[node name="Heart1" type="Sprite2D" parent="HealthController"]
+texture_filter = 1
+position = Vector2(-177, -94)
+texture = ExtResource("2_tbgi4")
+
+[node name="Heart2" type="Sprite2D" parent="HealthController"]
+texture_filter = 1
+position = Vector2(-159, -94)
+texture = ExtResource("2_tbgi4")
+
+[node name="Heart3" type="Sprite2D" parent="HealthController"]
+texture_filter = 1
+position = Vector2(-140, -94)
+texture = ExtResource("2_tbgi4")
+
+[node name="Timer" type="Timer" parent="HealthController"]
 
 [node name="Spawner" type="Node" parent="."]
 script = ExtResource("1_jyhfs")
@@ -115,5 +135,7 @@ autoplay = "idle"
 
 [node name="Timer" type="Timer" parent="Player"]
 
+[connection signal="timeout" from="HealthController/Timer" to="HealthController" method="_on_timer_timeout"]
 [connection signal="timeout" from="Spawner/Timer" to="Spawner" method="_on_timer_timeout"]
+[connection signal="took_damage" from="Player" to="HealthController" method="_on_player_took_damage"]
 [connection signal="timeout" from="Player/Timer" to="Player" method="_on_timer_timeout"]
