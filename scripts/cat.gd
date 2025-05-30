@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
 @export var speed: float = 100.0
-@export var stop_distance: float = 15.0
+@export var stop_distance: float = 5.0
 
-var player: AnimatableBody2D
+var player: CharacterBody2D
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 

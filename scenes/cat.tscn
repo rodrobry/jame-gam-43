@@ -51,6 +51,7 @@ _data = {
 }
 
 [node name="Cat" type="CharacterBody2D"]
+z_index = 1
 script = ExtResource("1_se5fe")
 speed = 75.0
 

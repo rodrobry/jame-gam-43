@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dr0qixgnltvxf"]
+[gd_scene load_steps=13 format=3 uid="uid://dr0qixgnltvxf"]
 
 [ext_resource type="PackedScene" uid="uid://c620vcj318ud4" path="res://scenes/spawner.tscn" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://c2ei25u4ahdmw" path="res://scripts/player.gd" id="1_sugp2"]
@@ -7,6 +7,10 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jyhfs"]
 radius = 8.0
 height = 32.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sugp2"]
+atlas = ExtResource("3_sugp2")
+region = Rect2(0, 0, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jyhfs"]
 atlas = ExtResource("3_sugp2")
@@ -28,6 +32,14 @@ region = Rect2(64, 0, 16, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_sugp2")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_jyhfs")
 }, {
 "duration": 1.0,
@@ -40,19 +52,27 @@ animations = [{
 "texture": SubResource("AtlasTexture_o6xl0")
 }],
 "loop": true,
-"name": &"default",
+"name": &"run",
 "speed": 7.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]
+size = Vector2(5, 216)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
+size = Vector2(400, 5)
 
 [node name="Main" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
+zoom = Vector2(3, 3)
 
 [node name="spawner" parent="." instance=ExtResource("1_jyhfs")]
 
-[node name="Player" type="AnimatableBody2D" parent="."]
+[node name="Player" type="CharacterBody2D" parent="."]
 unique_name_in_owner = true
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_sugp2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
@@ -61,5 +81,26 @@ shape = SubResource("CapsuleShape2D_jyhfs")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_tipki")
-autoplay = "default"
-frame_progress = 0.447151
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Bounds" type="StaticBody2D" parent="."]
+position = Vector2(140, 56)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds"]
+position = Vector2(54, -58)
+shape = SubResource("RectangleShape2D_sugp2")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Bounds"]
+position = Vector2(-334, -58)
+shape = SubResource("RectangleShape2D_sugp2")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Bounds"]
+position = Vector2(-139, -167)
+shape = SubResource("RectangleShape2D_jyhfs")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Bounds"]
+position = Vector2(-140, 53)
+shape = SubResource("RectangleShape2D_jyhfs")

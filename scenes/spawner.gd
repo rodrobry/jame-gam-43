@@ -1,7 +1,7 @@
 extends Area2D
 
 @onready var timer: Timer = $Timer
-@onready var player: AnimatableBody2D = %Player
+@onready var player: CharacterBody2D = %Player
 
 enum Sides {RIGHT, TOP, LEFT, BOTTOM}
 
