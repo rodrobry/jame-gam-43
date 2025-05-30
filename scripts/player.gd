@@ -3,6 +3,8 @@ extends CharacterBody2D
 @export var speed: float = 100.0
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
+var health = 3
+
 func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement.
 	var input_vector := Vector2.ZERO
@@ -25,4 +27,10 @@ func _physics_process(delta: float) -> void:
 	#Move
 	velocity = input_vector * speed
 	move_and_slide()
+
+func take_damage(damage: int) -> void:
+	print("took " + str(damage) + " damage")
+	health -= damage
+	if health <= 0:
+		get_tree().reload_current_scene()
 	

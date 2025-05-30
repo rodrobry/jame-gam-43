@@ -1,11 +1,18 @@
-[gd_scene load_steps=13 format=3 uid="uid://dr0qixgnltvxf"]
+[gd_scene load_steps=14 format=3 uid="uid://dr0qixgnltvxf"]
 
-[ext_resource type="Script" uid="uid://dwy3ddt05p4la" path="res://scenes/spawner.gd" id="1_jyhfs"]
+[ext_resource type="Script" uid="uid://dwy3ddt05p4la" path="res://scripts/spawner.gd" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://c2ei25u4ahdmw" path="res://scripts/player.gd" id="1_sugp2"]
+[ext_resource type="Script" uid="uid://day2hkyp03gon" path="res://scripts/game_controller.gd" id="1_tbgi4"]
 [ext_resource type="Texture2D" uid="uid://k8qdrka7hnwr" path="res://sprites/base_human_sheet.png" id="3_sugp2"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]
+size = Vector2(5, 216)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
+size = Vector2(400, 5)
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jyhfs"]
-radius = 8.0
+radius = 6.0
 height = 32.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sugp2"]
@@ -56,37 +63,19 @@ animations = [{
 "speed": 7.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]
-size = Vector2(5, 216)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
-size = Vector2(400, 5)
-
 [node name="Main" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
 
-[node name="spawner" type="Node" parent="."]
+[node name="GameController" type="Node" parent="."]
+script = ExtResource("1_tbgi4")
+
+[node name="Spawner" type="Node" parent="."]
 script = ExtResource("1_jyhfs")
 
-[node name="Timer" type="Timer" parent="spawner"]
+[node name="Timer" type="Timer" parent="Spawner"]
 autostart = true
-
-[node name="Player" type="CharacterBody2D" parent="."]
-unique_name_in_owner = true
-collision_layer = 2
-collision_mask = 2
-script = ExtResource("1_sugp2")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-shape = SubResource("CapsuleShape2D_jyhfs")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
-texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_tipki")
-animation = &"idle"
-autoplay = "idle"
 
 [node name="Bounds" type="StaticBody2D" parent="."]
 position = Vector2(140, 56)
@@ -109,4 +98,19 @@ shape = SubResource("RectangleShape2D_jyhfs")
 position = Vector2(-140, 54)
 shape = SubResource("RectangleShape2D_jyhfs")
 
-[connection signal="timeout" from="spawner/Timer" to="spawner" method="_on_timer_timeout"]
+[node name="Player" type="CharacterBody2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_sugp2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CapsuleShape2D_jyhfs")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_tipki")
+animation = &"idle"
+autoplay = "idle"
+
+[connection signal="timeout" from="Spawner/Timer" to="Spawner" method="_on_timer_timeout"]

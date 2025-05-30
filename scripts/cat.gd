@@ -1,13 +1,15 @@
 extends CharacterBody2D
 
 @export var speed: float = 100.0
-@export var stop_distance: float = 5.0
+@export var attack_range: float = 15.0
+@onready var attack_timer: Timer = $Timer
 
 var player: CharacterBody2D
+var attack_on_cooldown := false
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	# Check direction towards player
 	var direction = (player.global_position - global_position).normalized()
 	
@@ -18,11 +20,20 @@ func _process(delta: float) -> void:
 		animated_sprite_2d.flip_h = true
 		
 	
-	# Don't move if close enough
+	# Attack if close enough, move if not
 	var distance = global_position.distance_to(player.global_position)
-	if distance < stop_distance:
-		return
+	if distance < attack_range:
+		if !attack_on_cooldown:
+			attack()
+	else:
+		velocity = direction * speed
+		move_and_slide()
 	
-	#Move
-	velocity = direction * speed
-	move_and_slide()
+func attack():
+	player.take_damage(1)
+	animated_sprite_2d.play("attack")
+	attack_timer.start()
+	attack_on_cooldown = true
+
+func _on_timer_timeout() -> void:
+	attack_on_cooldown = false
