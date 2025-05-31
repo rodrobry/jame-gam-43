@@ -3,22 +3,37 @@ extends Node
 @onready var timer: Timer = $Timer
 @onready var player: CharacterBody2D = %Player
 @onready var texture_progress_bar: TextureProgressBar = $"../ProgressBar/TextureProgressBar"
-
+@onready var wave_label: Label = $"../ProgressBar/WaveLabel"
 
 enum Sides {RIGHT, TOP, LEFT, BOTTOM}
 
 var spawn_side : Sides
 var dead_enemies := 0
+var spawn_rate := 1.5
+var current_wave := 1
+
+var waves = {
+	1:{"spawn_rate": 1.5, "enemies_in_wave": 10},
+	2:{"spawn_rate": 1.4, "enemies_in_wave": 15},
+	3:{"spawn_rate": 1.3, "enemies_in_wave": 20},
+	4:{"spawn_rate": 1.2, "enemies_in_wave": 25},
+	5:{"spawn_rate": 1.1, "enemies_in_wave": 30},
+	6:{"spawn_rate": 1.0, "enemies_in_wave": 40},
+	7:{"spawn_rate": 0.9, "enemies_in_wave": 50},
+	8:{"spawn_rate": 0.8, "enemies_in_wave": 60},
+	9:{"spawn_rate": 0.7, "enemies_in_wave": 70},
+	10:{"spawn_rate": 0.6, "enemies_in_wave": 80},
+	}
 
 const CAT = preload("res://scenes/cat.tscn")
 
 func _ready() -> void:
 	spawn_enemy()
-	timer.start()
+	timer.start(spawn_rate)
 
 func _on_timer_timeout():
 	spawn_enemy()
-	timer.start()
+	timer.start(spawn_rate)
 	
 func spawn_enemy():
 	var enemy = CAT.instantiate()
@@ -47,4 +62,12 @@ func generate_spawn_position() -> Vector2:
 	
 func _on_enemy_died():
 	dead_enemies += 1
-	texture_progress_bar.value = dead_enemies * 10
+	var enemies_in_wave = waves[1]["enemies_in_wave"]
+	if dead_enemies >= enemies_in_wave:
+		current_wave += 1
+		if current_wave > 10:
+			print("You won!")
+			Engine.time_scale = 0
+		dead_enemies = 0
+		wave_label.text = "Wave: " + str(current_wave)
+	texture_progress_bar.value = dead_enemies * 100 / enemies_in_wave

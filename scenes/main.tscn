@@ -118,14 +118,14 @@ offset_top = -96.0
 offset_right = 150.0
 offset_bottom = -96.0
 
-[node name="Label" type="Label" parent="WaveController/ProgressBar"]
+[node name="WaveLabel" type="Label" parent="WaveController/ProgressBar"]
 offset_left = -88.0
 offset_top = -5.0
 offset_right = -38.0
 offset_bottom = 6.0
 theme_override_fonts/font = ExtResource("4_o6xl0")
 theme_override_font_sizes/font_size = 8
-text = "Wave: 0"
+text = "Wave: 1"
 
 [node name="Sprite-0001" type="Sprite2D" parent="WaveController/ProgressBar"]
 scale = Vector2(1.09748, 0.390997)
