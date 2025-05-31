@@ -18,7 +18,7 @@ func _on_body_entered(body: Node2D) -> void:
 			gpu_particles_2d.emitting = true
 			body.life -= damage
 		
-			# if cat has reached 0 life, make it vanish and be destroyed
+			# If cat has reached 0 life, make it vanish and be destroyed
 			if body.life <= 0:
 				var t = get_tree().create_tween()
 				t.tween_property(body, "modulate:a", 0.0, 2.0).set_trans(Tween.TRANS_SINE)

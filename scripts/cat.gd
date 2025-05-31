@@ -66,7 +66,6 @@ func die():
 
 	velocity = exit_direction * speed
 	move_and_slide()
-	return
 
 
 func _on_timer_timeout() -> void:
