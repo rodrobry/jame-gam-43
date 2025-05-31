@@ -2,10 +2,13 @@ extends Node
 
 @onready var timer: Timer = $Timer
 @onready var player: CharacterBody2D = %Player
+@onready var texture_progress_bar: TextureProgressBar = $"../ProgressBar/TextureProgressBar"
+
 
 enum Sides {RIGHT, TOP, LEFT, BOTTOM}
 
 var spawn_side : Sides
+var dead_enemies := 0
 
 const CAT = preload("res://scenes/cat.tscn")
 
@@ -22,6 +25,7 @@ func spawn_enemy():
 	enemy.global_position = generate_spawn_position()
 	enemy.player = player
 	add_child(enemy)
+	enemy.enemy_died.connect(_on_enemy_died)
 
 func generate_spawn_position() -> Vector2:
 	var spawn_position: Vector2
@@ -41,4 +45,6 @@ func generate_spawn_position() -> Vector2:
 			spawn_position.y = -175
 	return spawn_position
 	
-	
+func _on_enemy_died():
+	dead_enemies += 1
+	texture_progress_bar.value = dead_enemies * 10

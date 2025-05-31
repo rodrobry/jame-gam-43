@@ -6,13 +6,14 @@ class_name Cat
 @onready var attack_timer: Timer = $Timer
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
-var life: int = 5
-
 var player: CharacterBody2D
-var attack_on_cooldown := false
-
+var life: int = 5
 var being_brushed = false
+var is_dying = false
+var attack_on_cooldown := false
 var exit_direction = Vector2.ZERO
+
+signal enemy_died
 
 func _physics_process(_delta: float) -> void:
 	# If cat's life has reached 0, it will run away from the player until it vanishes
@@ -49,6 +50,11 @@ func attack():
 	attack_on_cooldown = true
 
 func die():
+	# Emit death signal once
+	if !is_dying:
+		enemy_died.emit()
+		is_dying = true
+	
 	# Check if exit direction was set
 	if exit_direction.length_squared() < 0.1:
 		exit_direction = (global_position - player.global_position).normalized()
@@ -59,6 +65,13 @@ func die():
 		else:
 			animated_sprite_2d.flip_h = true
 
+		if self.life <= 0:
+			var t = get_tree().create_tween()
+			t.tween_property(self, "modulate:a", 0.0, 2.0).set_trans(Tween.TRANS_SINE)
+			t.play()
+			t.tween_callback(Callable(self, "_on_fade_complete"))
+			
+
 		# Set exit speed, run animation with custom speed, and remove collision component
 		speed = 75.0
 		animated_sprite_2d.play("run", 2.0)
@@ -67,6 +80,8 @@ func die():
 	velocity = exit_direction * speed
 	move_and_slide()
 
-
 func _on_timer_timeout() -> void:
 	attack_on_cooldown = false
+
+func _on_fade_complete() -> void:
+	queue_free()
