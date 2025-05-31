@@ -6,7 +6,7 @@ extends CharacterBody2D
 
 const BRUSH = preload("res://scenes/brush.tscn")
 
-var numBrushes = 5
+var numBrushes = 2
 
 signal took_damage 
 
@@ -17,7 +17,7 @@ func _ready() -> void:
 		newBrush.theta = startTheta
 		add_child(newBrush)
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	# Get the input direction and handle the movement.
 	var input_vector := Vector2.ZERO
 	if Input.is_action_pressed("move_right"):

@@ -57,7 +57,6 @@ radius = 7.0
 [node name="Cat" type="CharacterBody2D"]
 z_index = 1
 script = ExtResource("1_se5fe")
-speed = 75.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

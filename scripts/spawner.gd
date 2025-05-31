@@ -11,7 +11,7 @@ const CAT = preload("res://scenes/cat.tscn")
 
 func _ready() -> void:
 	spawn_enemy()
-	timer.start
+	timer.start()
 
 func _on_timer_timeout():
 	spawn_enemy()
@@ -25,7 +25,7 @@ func spawn_enemy():
 
 func generate_spawn_position() -> Vector2:
 	var spawn_position: Vector2
-	spawn_side = randi_range(0, 3)
+	spawn_side = Sides.values().pick_random()
 	match spawn_side:
 		Sides.RIGHT:
 			spawn_position.x = 300

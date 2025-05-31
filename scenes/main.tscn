@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://dr0qixgnltvxf"]
+[gd_scene load_steps=16 format=3 uid="uid://dr0qixgnltvxf"]
 
 [ext_resource type="Script" uid="uid://dwy3ddt05p4la" path="res://scripts/spawner.gd" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://c2ei25u4ahdmw" path="res://scripts/player.gd" id="1_sugp2"]
 [ext_resource type="Script" uid="uid://q6q1s6tvucth" path="res://scenes/health_controller.gd" id="1_tbgi4"]
+[ext_resource type="Script" uid="uid://cssixl4mhja44" path="res://scenes/main.gd" id="1_tefeu"]
 [ext_resource type="Texture2D" uid="uid://y2lb25mru757" path="res://sprites/Charm-16x16.png" id="2_tbgi4"]
 [ext_resource type="Texture2D" uid="uid://k8qdrka7hnwr" path="res://sprites/base_human_sheet.png" id="3_sugp2"]
 
@@ -65,6 +66,7 @@ animations = [{
 }]
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_tefeu")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
