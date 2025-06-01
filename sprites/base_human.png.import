@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://y2lb25mru757"
-path="res://.godot/imported/Charm-16x16.png-c46527785fec162c9bd3f03c528d61bf.ctex"
+uid="uid://co7pjwmtwg8kt"
+path="res://.godot/imported/base_human.png-1777f620ea127b29b1b8d13b786f2e5a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Charm-16x16.png"
-dest_files=["res://.godot/imported/Charm-16x16.png-c46527785fec162c9bd3f03c528d61bf.ctex"]
+source_file="res://sprites/base_human.png"
+dest_files=["res://.godot/imported/base_human.png-1777f620ea127b29b1b8d13b786f2e5a.ctex"]
 
 [params]
 

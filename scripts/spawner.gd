@@ -4,6 +4,7 @@ extends Node
 @onready var player: CharacterBody2D = %Player
 @onready var texture_progress_bar: TextureProgressBar = $"../UI/ProgressBar/TextureProgressBar"
 @onready var wave_label: Label = $"../UI/ProgressBar/WaveLabel"
+@onready var upgrade_menu: Control = $"../UI/UpgradeMenu"
 
 enum Sides {RIGHT, TOP, LEFT, BOTTOM}
 
@@ -13,10 +14,10 @@ var spawn_rate := 1.5
 var current_wave := 1
 
 var waves = {
-	1:{"spawn_rate": 1.5, "enemies_in_wave": 10},
-	2:{"spawn_rate": 1.4, "enemies_in_wave": 15},
-	3:{"spawn_rate": 1.3, "enemies_in_wave": 20},
-	4:{"spawn_rate": 1.2, "enemies_in_wave": 25},
+	1:{"spawn_rate": 1.5, "enemies_in_wave": 5},
+	2:{"spawn_rate": 1.4, "enemies_in_wave": 10},
+	3:{"spawn_rate": 1.3, "enemies_in_wave": 15},
+	4:{"spawn_rate": 1.2, "enemies_in_wave": 20},
 	5:{"spawn_rate": 1.1, "enemies_in_wave": 30},
 	6:{"spawn_rate": 1.0, "enemies_in_wave": 40},
 	7:{"spawn_rate": 0.9, "enemies_in_wave": 50},
@@ -64,10 +65,12 @@ func _on_enemy_died():
 	dead_enemies += 1
 	var enemies_in_wave = waves[1]["enemies_in_wave"]
 	if dead_enemies >= enemies_in_wave:
+		Engine.time_scale = 0
+		upgrade_menu.visible = true
 		current_wave += 1
 		if current_wave > 10:
 			print("You won!")
-			Engine.time_scale = 0
 		dead_enemies = 0
 		wave_label.text = "Wave: " + str(current_wave)
 	texture_progress_bar.value = dead_enemies * 100 / enemies_in_wave
+	
