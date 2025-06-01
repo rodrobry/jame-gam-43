@@ -2,8 +2,8 @@ extends Node
 
 @onready var timer: Timer = $Timer
 @onready var player: CharacterBody2D = %Player
-@onready var texture_progress_bar: TextureProgressBar = $"../ProgressBar/TextureProgressBar"
-@onready var wave_label: Label = $"../ProgressBar/WaveLabel"
+@onready var texture_progress_bar: TextureProgressBar = $"../UI/ProgressBar/TextureProgressBar"
+@onready var wave_label: Label = $"../UI/ProgressBar/WaveLabel"
 
 enum Sides {RIGHT, TOP, LEFT, BOTTOM}
 

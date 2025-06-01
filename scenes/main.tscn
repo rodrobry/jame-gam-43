@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dr0qixgnltvxf"]
+[gd_scene load_steps=20 format=3 uid="uid://dr0qixgnltvxf"]
 
 [ext_resource type="Script" uid="uid://dwy3ddt05p4la" path="res://scripts/spawner.gd" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://c2ei25u4ahdmw" path="res://scripts/player.gd" id="1_sugp2"]
@@ -7,8 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://y2lb25mru757" path="res://sprites/Charm-16x16.png" id="2_tbgi4"]
 [ext_resource type="Texture2D" uid="uid://k8qdrka7hnwr" path="res://sprites/base_human_sheet.png" id="3_sugp2"]
 [ext_resource type="FontFile" uid="uid://dl1bqdbya17ue" path="res://sprites/PixelOperator8.ttf" id="4_o6xl0"]
-[ext_resource type="Texture2D" uid="uid://fki7o6c2f04a" path="res://sprites/Sprite-0001.png" id="6_85g3d"]
-[ext_resource type="Texture2D" uid="uid://drd177qpt7mnx" path="res://sprites/Sprite-0005.png" id="7_choun"]
+[ext_resource type="Texture2D" uid="uid://fki7o6c2f04a" path="res://sprites/rectangle_white_long.png" id="6_85g3d"]
+[ext_resource type="Texture2D" uid="uid://drd177qpt7mnx" path="res://sprites/rectangle_blue_long.png" id="7_choun"]
+[ext_resource type="PackedScene" uid="uid://bnwmc5pi1x2g7" path="res://scenes/upgrade.tscn" id="10_choun"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]
 size = Vector2(5, 216)
@@ -74,51 +75,45 @@ script = ExtResource("1_tefeu")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
 
-[node name="HealthController" type="Control" parent="."]
-z_index = 5
-layout_mode = 3
-anchors_preset = 0
-script = ExtResource("1_tbgi4")
-
-[node name="Heart1" type="Sprite2D" parent="HealthController"]
-texture_filter = 1
-position = Vector2(-177, -94)
-texture = ExtResource("2_tbgi4")
-
-[node name="Heart2" type="Sprite2D" parent="HealthController"]
-texture_filter = 1
-position = Vector2(-159, -94)
-texture = ExtResource("2_tbgi4")
-
-[node name="Heart3" type="Sprite2D" parent="HealthController"]
-texture_filter = 1
-position = Vector2(-140, -94)
-texture = ExtResource("2_tbgi4")
-
-[node name="Timer" type="Timer" parent="HealthController"]
-
-[node name="WaveController" type="Control" parent="."]
+[node name="UI" type="Control" parent="."]
 z_index = 5
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Spawner" type="Node" parent="WaveController"]
-script = ExtResource("1_jyhfs")
+[node name="Health" type="Control" parent="UI"]
+z_index = 5
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_tbgi4")
 
-[node name="Timer" type="Timer" parent="WaveController/Spawner"]
-wait_time = 1.5
-autostart = true
+[node name="Heart1" type="Sprite2D" parent="UI/Health"]
+texture_filter = 1
+position = Vector2(-177, -94)
+texture = ExtResource("2_tbgi4")
 
-[node name="ProgressBar" type="Control" parent="WaveController"]
+[node name="Heart2" type="Sprite2D" parent="UI/Health"]
+texture_filter = 1
+position = Vector2(-159, -94)
+texture = ExtResource("2_tbgi4")
+
+[node name="Heart3" type="Sprite2D" parent="UI/Health"]
+texture_filter = 1
+position = Vector2(-140, -94)
+texture = ExtResource("2_tbgi4")
+
+[node name="Timer" type="Timer" parent="UI/Health"]
+
+[node name="ProgressBar" type="Control" parent="UI"]
 anchors_preset = 0
 offset_left = 150.0
 offset_top = -96.0
 offset_right = 150.0
 offset_bottom = -96.0
 
-[node name="WaveLabel" type="Label" parent="WaveController/ProgressBar"]
+[node name="WaveLabel" type="Label" parent="UI/ProgressBar"]
+layout_mode = 0
 offset_left = -88.0
 offset_top = -5.0
 offset_right = -38.0
@@ -127,17 +122,31 @@ theme_override_fonts/font = ExtResource("4_o6xl0")
 theme_override_font_sizes/font_size = 8
 text = "Wave: 1"
 
-[node name="Sprite-0001" type="Sprite2D" parent="WaveController/ProgressBar"]
+[node name="Sprite-0001" type="Sprite2D" parent="UI/ProgressBar"]
 scale = Vector2(1.09748, 0.390997)
 texture = ExtResource("6_85g3d")
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="WaveController/ProgressBar"]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="UI/ProgressBar"]
+layout_mode = 0
 offset_left = -33.0
 offset_top = -4.0
 offset_right = 7.0
 offset_bottom = 36.0
 scale = Vector2(2.05419, 0.526385)
 texture_progress = ExtResource("7_choun")
+
+[node name="UpgradeMenu" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Spawner" type="Node" parent="."]
+script = ExtResource("1_jyhfs")
+
+[node name="Timer" type="Timer" parent="Spawner"]
+wait_time = 1.5
+autostart = true
 
 [node name="Bounds" type="StaticBody2D" parent="."]
 position = Vector2(140, 56)
@@ -177,7 +186,13 @@ autoplay = "idle"
 
 [node name="Timer" type="Timer" parent="Player"]
 
-[connection signal="timeout" from="HealthController/Timer" to="HealthController" method="_on_timer_timeout"]
-[connection signal="timeout" from="WaveController/Spawner/Timer" to="WaveController/Spawner" method="_on_timer_timeout"]
-[connection signal="took_damage" from="Player" to="HealthController" method="_on_player_took_damage"]
+[node name="Upgrade" parent="." instance=ExtResource("10_choun")]
+offset_left = -108.0
+offset_top = -6.0
+offset_right = -108.0
+offset_bottom = -6.0
+
+[connection signal="timeout" from="UI/Health/Timer" to="UI/Health" method="_on_timer_timeout"]
+[connection signal="timeout" from="Spawner/Timer" to="Spawner" method="_on_timer_timeout"]
+[connection signal="took_damage" from="Player" to="UI/Health" method="_on_player_took_damage"]
 [connection signal="timeout" from="Player/Timer" to="Player" method="_on_timer_timeout"]
