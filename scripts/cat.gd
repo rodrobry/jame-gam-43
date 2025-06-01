@@ -2,14 +2,15 @@ class_name Cat
 
 extends CharacterBody2D
 
-@export var speed: float = 25.0
+@export var max_speed: float = 25.0
 @export var attack_range: float = 5.0
 @onready var attack_timer: Timer = $Timer
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
-
 @export var player: CharacterBody2D
-var life: int = 5
+
+var speed: float = 25.0
+var life: int = 6
 var being_brushed = false
 var is_dying = false
 var attack_on_cooldown := false
@@ -33,7 +34,7 @@ func _physics_process(_delta: float) -> void:
 		return
 	
 	# Change cat speed if being brushed
-	speed = 10.0 if being_brushed else 25.0
+	speed = 10.0 if being_brushed else max_speed
 	
 	# Flip Sprite
 	if direction.x >= 0:
@@ -46,7 +47,7 @@ func _physics_process(_delta: float) -> void:
 		if !attack_on_cooldown:
 			attack()
 	else:
-		animated_sprite_2d.play("run")
+		animated_sprite_2d.play("run", speed / 25.0)
 		velocity = direction * speed
 		move_and_slide()
 	

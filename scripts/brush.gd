@@ -3,7 +3,7 @@ extends Area2D
 var theta: float = 0.0
 var radius: float = 30.0
 var speed: float = 2
-var damage: int = 3
+var damage: int = 2
 var attack_rate := 0.5
 var arch_offset := 0.0
 var cats_being_brushed: Array[Cat] = []
