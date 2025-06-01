@@ -6,7 +6,6 @@ var speed: float = 2
 var damage: int = 3
 var attack_rate := 0.5
 var arch_offset := 0.0
-var arch_length := PI
 var cats_being_brushed: Array[Cat] = []
 
 @onready var gpu_particles_2d: GPUParticles2D = $GPUParticles2D
@@ -18,9 +17,8 @@ func _ready():
 	
 func _process(delta: float) -> void:
 	
-	position = radius * Vector2(1.0, 0.0).rotated(arch_offset + theta * arch_length)
+	position = radius * Vector2(1.0, 0.0).rotated(arch_offset + theta)
 	theta += speed * delta 
-	#theta = fmod(theta, 2 * PI)
 	
 	# Emit dust particles if there are cats being brushed
 	if cats_being_brushed.size() > 0:
