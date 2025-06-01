@@ -22,9 +22,9 @@ var waves = {
 		5:{"spawn_rate": 1.1, "enemies_in_wave": 30, "enemy_speed_multiplier": 1.2},
 		6:{"spawn_rate": 0.9, "enemies_in_wave": 40, "enemy_speed_multiplier": 1.25},
 		7:{"spawn_rate": 0.8, "enemies_in_wave": 50, "enemy_speed_multiplier": 1.3},
-		8:{"spawn_rate": 0.7, "enemies_in_wave": 70, "enemy_speed_multiplier": 1.35},
-		9:{"spawn_rate": 0.6, "enemies_in_wave": 100, "enemy_speed_multiplier": 1.40},
-		10:{"spawn_rate": 0.5, "enemies_in_wave": 120, "enemy_speed_multiplier": 1.45},
+		8:{"spawn_rate": 0.75, "enemies_in_wave": 70, "enemy_speed_multiplier": 1.35},
+		9:{"spawn_rate": 0.7, "enemies_in_wave": 100, "enemy_speed_multiplier": 1.40},
+		10:{"spawn_rate": 0.65, "enemies_in_wave": 120, "enemy_speed_multiplier": 1.45},
 	}
 
 const CAT = preload("res://scenes/cat.tscn")
