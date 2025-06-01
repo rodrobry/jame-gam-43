@@ -1,12 +1,28 @@
-[gd_scene load_steps=15 format=3 uid="uid://cewgvfogpcd4f"]
+[gd_scene load_steps=19 format=3 uid="uid://cewgvfogpcd4f"]
 
 [ext_resource type="Script" uid="uid://cvs5kk66x2s5t" path="res://scripts/cat.gd" id="1_se5fe"]
 [ext_resource type="Texture2D" uid="uid://d3ta0ufee3kf4" path="res://sprites/base_cat_sheet.png" id="2_se5fe"]
 [ext_resource type="Texture2D" uid="uid://y2lb25mru757" path="res://sprites/heart.png" id="3_t8pth"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_se5fe"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_o55mh"]
 atlas = ExtResource("2_se5fe")
-region = Rect2(0, 0, 16, 16)
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ic5u8"]
+atlas = ExtResource("2_se5fe")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8px16"]
+atlas = ExtResource("2_se5fe")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kedyd"]
+atlas = ExtResource("2_se5fe")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v4p53"]
+atlas = ExtResource("2_se5fe")
+region = Rect2(144, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t8pth"]
 atlas = ExtResource("2_se5fe")
@@ -28,11 +44,23 @@ region = Rect2(64, 0, 16, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_se5fe")
+"texture": SubResource("AtlasTexture_o55mh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ic5u8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8px16")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kedyd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v4p53")
 }],
 "loop": true,
 "name": &"attack",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -99,4 +127,5 @@ shape = SubResource("CircleShape2D_tbgi4")
 
 [node name="Timer" type="Timer" parent="."]
 
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

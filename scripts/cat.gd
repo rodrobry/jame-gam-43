@@ -45,7 +45,6 @@ func _physics_process(_delta: float) -> void:
 		move_and_slide()
 	
 func attack():
-	player.take_damage(1)
 	animated_sprite_2d.play("attack")
 	attack_timer.start(1.2)
 	attack_on_cooldown = true
@@ -100,3 +99,7 @@ func _on_timer_timeout() -> void:
 
 func _on_fade_complete() -> void:
 	queue_free()
+
+func _on_animated_sprite_2d_frame_changed() -> void:
+	if animated_sprite_2d.animation == "attack" and animated_sprite_2d.frame == 3:
+		player.take_damage(1)
