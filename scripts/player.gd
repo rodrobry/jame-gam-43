@@ -57,7 +57,8 @@ func spawn_brushes():
 			
 	#Spawn new brushes
 	for i in numBrushes:
-		var startTheta = i * 2.0 * PI / numBrushes
+		var offset = (i - floor(numBrushes * 0.5)) * 2.0 * PI / numBrushes
 		var newBrush = BRUSH.instantiate()
-		newBrush.theta = startTheta
+		newBrush.arch_offset = offset
+		newBrush.arch_length = PI / numBrushes
 		add_child(newBrush)

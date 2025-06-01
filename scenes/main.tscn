@@ -28,12 +28,6 @@ texture = ExtResource("2_a8y0u")
 sources/1 = SubResource("TileSetAtlasSource_a8y0u")
 sources/2 = SubResource("TileSetAtlasSource_jkv2x")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]
-size = Vector2(5, 216)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
-size = Vector2(400, 5)
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jyhfs"]
 radius = 6.0
 height = 32.0
@@ -85,6 +79,12 @@ animations = [{
 "name": &"run",
 "speed": 7.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]
+size = Vector2(5, 216)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
+size = Vector2(400, 5)
 
 [node name="Main" type="Node2D"]
 
@@ -299,20 +299,20 @@ offset_bottom = 40.0
 texture_filter = 1
 position = Vector2(-100, 0)
 upgrade_menu = NodePath("..")
-player = NodePath("../../../Player")
+player = NodePath("../../../Spawner/Player")
 
 [node name="Upgrade2" parent="UI/UpgradeMenu" node_paths=PackedStringArray("upgrade_menu", "player") instance=ExtResource("10_choun")]
 texture_filter = 1
 upgrade_menu = NodePath("..")
 upgrade_type = 1
-player = NodePath("../../../Player")
+player = NodePath("../../../Spawner/Player")
 
 [node name="Upgrade3" parent="UI/UpgradeMenu" node_paths=PackedStringArray("upgrade_menu", "player") instance=ExtResource("10_choun")]
 texture_filter = 1
 position = Vector2(100, 0)
 upgrade_menu = NodePath("..")
 upgrade_type = 2
-player = NodePath("../../../Player")
+player = NodePath("../../../Spawner/Player")
 
 [node name="Spawner" type="Node" parent="."]
 script = ExtResource("1_jyhfs")
@@ -320,6 +320,27 @@ script = ExtResource("1_jyhfs")
 [node name="Timer" type="Timer" parent="Spawner"]
 wait_time = 1.5
 autostart = true
+
+[node name="Player" type="CharacterBody2D" parent="Spawner"]
+unique_name_in_owner = true
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_sugp2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawner/Player"]
+shape = SubResource("CapsuleShape2D_jyhfs")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Spawner/Player"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_tipki")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Timer" type="Timer" parent="Spawner/Player"]
+
+[node name="Cat" parent="Spawner" node_paths=PackedStringArray("player") instance=ExtResource("15_jkv2x")]
+position = Vector2(-97, 120)
+player = NodePath("../Player")
 
 [node name="Bounds" type="StaticBody2D" parent="."]
 position = Vector2(140, 56)
@@ -342,31 +363,11 @@ shape = SubResource("RectangleShape2D_jyhfs")
 position = Vector2(-140, 54)
 shape = SubResource("RectangleShape2D_jyhfs")
 
-[node name="Player" type="CharacterBody2D" parent="."]
-unique_name_in_owner = true
-collision_layer = 2
-collision_mask = 2
-script = ExtResource("1_sugp2")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-shape = SubResource("CapsuleShape2D_jyhfs")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
-texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_tipki")
-animation = &"idle"
-autoplay = "idle"
-
-[node name="Timer" type="Timer" parent="Player"]
-
-[node name="Cat" parent="." node_paths=PackedStringArray("player") instance=ExtResource("15_jkv2x")]
-position = Vector2(-97, 120)
-player = NodePath("../Player")
-
 [connection signal="pressed" from="UI/VictoryMenu/GoAgain" to="UI/VictoryMenu" method="_on_go_again_pressed"]
 [connection signal="pressed" from="UI/GameOverMenu/GoAgain" to="UI/GameOverMenu" method="_on_go_again_pressed"]
 [connection signal="pressed" from="UI/PauseMenu/Resume" to="UI/PauseMenu" method="_on_resume_pressed"]
 [connection signal="timeout" from="UI/HealthController/Timer" to="UI/HealthController" method="_on_timer_timeout"]
 [connection signal="timeout" from="Spawner/Timer" to="Spawner" method="_on_timer_timeout"]
-[connection signal="took_damage" from="Player" to="UI/HealthController" method="_on_player_took_damage"]
-[connection signal="timeout" from="Player/Timer" to="Player" method="_on_timer_timeout"]
+[connection signal="took_damage" from="Spawner/Player" to="UI/HealthController" method="_on_player_took_damage"]
+[connection signal="timeout" from="Spawner/Player/Timer" to="Spawner/Player" method="_on_timer_timeout"]
+[connection signal="enemy_died" from="Spawner/Cat" to="Spawner" method="_on_enemy_died"]

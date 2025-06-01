@@ -108,5 +108,6 @@ func _on_fade_complete() -> void:
 	queue_free()
 
 func _on_animated_sprite_2d_frame_changed() -> void:
-	if animated_sprite_2d.animation == "attack" and animated_sprite_2d.frame == 2:
-		player.take_damage(1)
+	if animated_sprite_2d != null:
+		if animated_sprite_2d.animation == "attack" and animated_sprite_2d.frame == 2:
+			player.take_damage(1)
