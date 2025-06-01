@@ -39,4 +39,4 @@ func _on_texture_button_pressed() -> void:
 		UpgradeTypes.FULL_HEAL:
 			player.took_damage.emit(-5)
 	upgrade_menu.visible = false
-	Engine.time_scale = 1
+	get_tree().paused = false

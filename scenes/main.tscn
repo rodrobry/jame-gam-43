@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://dwy3ddt05p4la" path="res://scripts/spawner.gd" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://c2ei25u4ahdmw" path="res://scripts/player.gd" id="1_sugp2"]
 [ext_resource type="Script" uid="uid://q6q1s6tvucth" path="res://scripts/health_controller.gd" id="1_tbgi4"]
-[ext_resource type="Script" uid="uid://cssixl4mhja44" path="res://scripts/main.gd" id="1_tefeu"]
 [ext_resource type="Texture2D" uid="uid://y2lb25mru757" path="res://sprites/heart.png" id="2_tbgi4"]
+[ext_resource type="Script" uid="uid://cud4dns8wrwub" path="res://scripts/pause_menu.gd" id="2_ya4ey"]
 [ext_resource type="Texture2D" uid="uid://k8qdrka7hnwr" path="res://sprites/base_human_sheet.png" id="3_sugp2"]
 [ext_resource type="FontFile" uid="uid://dl1bqdbya17ue" path="res://sprites/PixelOperator8.ttf" id="4_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://fki7o6c2f04a" path="res://sprites/rectangle_white_long.png" id="6_85g3d"]
@@ -70,7 +70,14 @@ animations = [{
 }]
 
 [node name="Main" type="Node2D"]
-script = ExtResource("1_tefeu")
+
+[node name="PauseMenu" type="Control" parent="."]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_ya4ey")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
@@ -146,6 +153,7 @@ scale = Vector2(2.05419, 0.526385)
 texture_progress = ExtResource("7_choun")
 
 [node name="UpgradeMenu" type="Control" parent="UI"]
+process_mode = 3
 visible = false
 layout_mode = 3
 anchors_preset = 0

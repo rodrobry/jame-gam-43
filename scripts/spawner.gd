@@ -66,7 +66,7 @@ func _on_enemy_died():
 	var enemies_in_wave = waves[current_wave]["enemies_in_wave"]
 	print(str(dead_enemies) + " / " + str(enemies_in_wave))
 	if dead_enemies >= enemies_in_wave:
-		Engine.time_scale = 0
+		get_tree().paused = true
 		upgrade_menu.visible = true
 		current_wave += 1
 		if current_wave > 10:
