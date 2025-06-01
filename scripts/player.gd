@@ -8,7 +8,7 @@ extends CharacterBody2D
 
 const BRUSH = preload("res://scenes/brush.tscn")
 
-var numBrushes := 5
+var numBrushes := 1
 
 signal took_damage 
 
