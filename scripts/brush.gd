@@ -1,10 +1,12 @@
 extends Area2D
 
 var theta: float = 0.0
-var radius: float = 50.0
-var speed: float = 1.5
+var radius: float = 30.0
+var speed: float = 2
 var damage: int = 3
 var attack_rate := 0.5
+var arch_offset := 0.0
+var arch_length := PI
 var cats_being_brushed: Array[Cat] = []
 
 @onready var gpu_particles_2d: GPUParticles2D = $GPUParticles2D
@@ -14,9 +16,12 @@ func _ready():
 	attack()
 	
 func _process(delta: float) -> void:
-	# Move around
-	position = radius * Vector2(cos(theta), sin(theta))
-	theta += speed * delta
+	# Move around:
+	#var mousePos = (get_global_mouse_position() - get_parent().global_position).normalized()
+	
+	position = radius * Vector2(1.0, 0.0).rotated(arch_offset + sin(theta) * arch_length)
+	theta += speed * delta 
+	theta = fmod(theta, 2 * PI)
 	
 	# Emit dust particles it there are cats being brushed
 	if cats_being_brushed.size() > 0:
@@ -26,6 +31,8 @@ func _process(delta: float) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Cat:
+		#attack()
+		body.take_damage(damage)
 		if body.life > 0:
 			body.being_brushed = true
 			cats_being_brushed.append(body)

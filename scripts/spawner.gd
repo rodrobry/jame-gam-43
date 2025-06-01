@@ -7,7 +7,6 @@ extends Node
 @onready var upgrade_menu: Control = $"../UI/UpgradeMenu"
 @onready var victory_menu: Control = $"../UI/VictoryMenu"
 
-
 enum Sides {RIGHT, TOP, LEFT, BOTTOM}
 
 var spawn_side : Sides
