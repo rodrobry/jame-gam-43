@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bnwmc5pi1x2g7"]
+[gd_scene load_steps=6 format=3 uid="uid://bnwmc5pi1x2g7"]
 
 [ext_resource type="Script" uid="uid://b7no323okhxyj" path="res://scripts/upgrade.gd" id="1_346kr"]
 [ext_resource type="Texture2D" uid="uid://djjoouhioyxtk" path="res://sprites/resctangle_white_64x128.png" id="1_g1npk"]
 [ext_resource type="Texture2D" uid="uid://d1x8ks04362ue" path="res://sprites/square_red.png" id="2_hj5gr"]
 [ext_resource type="FontFile" uid="uid://dl1bqdbya17ue" path="res://sprites/PixelOperator8.ttf" id="3_g1npk"]
+[ext_resource type="FontFile" uid="uid://i5qvbtg7a641" path="res://sprites/Tiny5-Regular.ttf" id="5_00gwf"]
 
 [node name="Upgrade" type="Node2D"]
 z_index = 1
@@ -45,8 +46,8 @@ offset_top = 6.0
 offset_right = 26.0
 offset_bottom = 49.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("3_g1npk")
-theme_override_font_sizes/font_size = 6
+theme_override_fonts/font = ExtResource("5_00gwf")
+theme_override_font_sizes/font_size = 8
 text = "Some description"
 horizontal_alignment = 1
 autowrap_mode = 2
@@ -59,8 +60,8 @@ offset_top = 53.0
 offset_right = 9.0
 offset_bottom = 60.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("3_g1npk")
-theme_override_font_sizes/font_size = 4
+theme_override_fonts/font = ExtResource("5_00gwf")
+theme_override_font_sizes/font_size = 8
 text = "(0/X)"
 horizontal_alignment = 1
 vertical_alignment = 1

@@ -82,7 +82,8 @@ func die():
 	velocity = exit_direction * speed
 	move_and_slide()
 
-func take_damage() -> void:
+func take_damage(damage: int) -> void:
+	life -= damage
 	being_brushed = true
 	var t = get_tree().create_tween()
 	t.tween_property(self, "modulate", Color(1, 0.5, 1), 0.125).set_trans(Tween.TRANS_LINEAR)

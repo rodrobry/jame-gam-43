@@ -15,8 +15,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if body is Cat:
 		if body.life > 0:
 			gpu_particles_2d.emitting = true
-			body.life -= damage
-			body.take_damage()
+			body.take_damage(damage)
 
 func _on_body_exited(body: Node2D) -> void:
 	if body is Cat:

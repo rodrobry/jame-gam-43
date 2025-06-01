@@ -23,7 +23,7 @@ func _ready() -> void:
 		UpgradeTypes.BRUSH_NUMBER:
 			icon.texture = brush_texture
 			name_label.text = "+1 BRUSH"
-			description_label.text = "Remember what you learned working at the air salon"
+			description_label.text = "Remember what you learned working at the hair salon"
 		UpgradeTypes.FULL_HEAL:
 			icon.texture = heart_texture
 			name_label.text = "FULL HEAL"
