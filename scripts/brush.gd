@@ -14,9 +14,9 @@ func _process(delta: float) -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body is Cat:
 		if body.life > 0:
-			body.being_brushed = true
 			gpu_particles_2d.emitting = true
 			body.life -= damage
+			body.take_damage()
 
 func _on_body_exited(body: Node2D) -> void:
 	if body is Cat:

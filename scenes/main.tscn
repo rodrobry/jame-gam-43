@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://dwy3ddt05p4la" path="res://scripts/spawner.gd" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://c2ei25u4ahdmw" path="res://scripts/player.gd" id="1_sugp2"]
 [ext_resource type="Script" uid="uid://q6q1s6tvucth" path="res://scripts/health_controller.gd" id="1_tbgi4"]
-[ext_resource type="Script" uid="uid://xw2jq803fc1k" path="res://scripts/victory_menu.gd" id="1_ya4ey"]
+[ext_resource type="Script" path="res://scripts/victory_menu.gd" id="1_ya4ey"]
 [ext_resource type="Texture2D" uid="uid://y2lb25mru757" path="res://sprites/heart.png" id="2_tbgi4"]
 [ext_resource type="Script" uid="uid://cud4dns8wrwub" path="res://scripts/pause_menu.gd" id="2_ya4ey"]
 [ext_resource type="Texture2D" uid="uid://k8qdrka7hnwr" path="res://sprites/base_human_sheet.png" id="3_sugp2"]
-[ext_resource type="Script" uid="uid://dijhlhgrxy2qi" path="res://scripts/game_over_menu.gd" id="4_eb6dy"]
+[ext_resource type="Script" path="res://scripts/game_over_menu.gd" id="4_eb6dy"]
 [ext_resource type="FontFile" uid="uid://dl1bqdbya17ue" path="res://sprites/PixelOperator8.ttf" id="4_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://fki7o6c2f04a" path="res://sprites/rectangle_white_long.png" id="6_85g3d"]
 [ext_resource type="Texture2D" uid="uid://drd177qpt7mnx" path="res://sprites/rectangle_blue_long.png" id="7_choun"]
@@ -244,6 +244,7 @@ offset_right = 150.0
 offset_bottom = -96.0
 
 [node name="WaveLabel" type="Label" parent="UI/ProgressBar"]
+texture_filter = 1
 layout_mode = 0
 offset_left = -88.0
 offset_top = -5.0
@@ -275,16 +276,19 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Upgrade1" parent="UI/UpgradeMenu" node_paths=PackedStringArray("upgrade_menu", "player") instance=ExtResource("10_choun")]
+texture_filter = 1
 position = Vector2(-100, 0)
 upgrade_menu = NodePath("..")
 player = NodePath("../../../Player")
 
 [node name="Upgrade2" parent="UI/UpgradeMenu" node_paths=PackedStringArray("upgrade_menu", "player") instance=ExtResource("10_choun")]
+texture_filter = 1
 upgrade_menu = NodePath("..")
 upgrade_type = 1
 player = NodePath("../../../Player")
 
 [node name="Upgrade3" parent="UI/UpgradeMenu" node_paths=PackedStringArray("upgrade_menu", "player") instance=ExtResource("10_choun")]
+texture_filter = 1
 position = Vector2(100, 0)
 upgrade_menu = NodePath("..")
 upgrade_type = 2

@@ -53,6 +53,7 @@ func attack():
 func die():
 	# Emit death signal once
 	if !is_dying:
+		$AnimatedSprite2D/GPUParticles2D.emitting = true
 		enemy_died.emit()
 		is_dying = true
 	
@@ -80,6 +81,18 @@ func die():
 
 	velocity = exit_direction * speed
 	move_and_slide()
+
+func take_damage() -> void:
+	being_brushed = true
+	var t = get_tree().create_tween()
+	t.tween_property(self, "modulate", Color(1, 0.5, 1), 0.125).set_trans(Tween.TRANS_LINEAR)
+	t.play()
+	t.tween_callback(Callable(self, "_modulate_back"))
+
+func _modulate_back() -> void:
+	var t = get_tree().create_tween()
+	t.tween_property(self, "modulate", Color.WHITE, 0.125).set_trans(Tween.TRANS_LINEAR)
+	t.play()
 
 func _on_timer_timeout() -> void:
 	attack_on_cooldown = false
