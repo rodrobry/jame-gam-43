@@ -50,9 +50,12 @@ func _on_timer_timeout() -> void:
 	animated_sprite_2d.modulate = Color(1, 1, 1) # Reset color
 	
 func spawn_brushes():
+	# Delete current brushes
 	for child in get_children():
 		if child is Area2D:
 			child.queue_free()
+			
+	#Spawn new brushes
 	for i in numBrushes:
 		var startTheta = i * 2.0 * PI / numBrushes
 		var newBrush = BRUSH.instantiate()

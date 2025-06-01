@@ -71,14 +71,6 @@ animations = [{
 
 [node name="Main" type="Node2D"]
 
-[node name="PauseMenu" type="Control" parent="."]
-process_mode = 3
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("2_ya4ey")
-
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
 
@@ -88,6 +80,36 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="PauseMenu" type="Control" parent="UI"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_ya4ey")
+
+[node name="Resume" type="TextureButton" parent="UI/PauseMenu"]
+visible = false
+layout_mode = 0
+offset_left = -34.0
+offset_top = -15.0
+offset_right = 30.0
+offset_bottom = 17.0
+texture_normal = ExtResource("6_85g3d")
+
+[node name="Label" type="Label" parent="UI/PauseMenu/Resume"]
+z_index = 1
+texture_filter = 1
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 32.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_o6xl0")
+theme_override_font_sizes/font_size = 8
+text = "Resume"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="HealthController" type="Control" parent="UI"]
 z_index = 5
@@ -221,6 +243,7 @@ autoplay = "idle"
 
 [node name="Timer" type="Timer" parent="Player"]
 
+[connection signal="pressed" from="UI/PauseMenu/Resume" to="UI/PauseMenu" method="_on_resume_pressed"]
 [connection signal="timeout" from="UI/HealthController/Timer" to="UI/HealthController" method="_on_timer_timeout"]
 [connection signal="timeout" from="Spawner/Timer" to="Spawner" method="_on_timer_timeout"]
 [connection signal="took_damage" from="Player" to="UI/HealthController" method="_on_player_took_damage"]
