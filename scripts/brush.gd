@@ -9,6 +9,7 @@ var cats_being_brushed: Array[Cat] = []
 
 @onready var gpu_particles_2d: GPUParticles2D = $GPUParticles2D
 @onready var timer: Timer = $Timer
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 func _ready():
 	attack()
@@ -18,7 +19,7 @@ func _process(delta: float) -> void:
 	position = radius * Vector2(cos(theta), sin(theta))
 	theta += speed * delta
 	
-	# Emit dust particles it there are cats being brushed
+	# Emit dust particles if there are cats being brushed
 	if cats_being_brushed.size() > 0:
 		gpu_particles_2d.emitting = true
 	else:
@@ -29,6 +30,7 @@ func _on_body_entered(body: Node2D) -> void:
 		if body.life > 0:
 			body.being_brushed = true
 			cats_being_brushed.append(body)
+			audio_stream_player_2d.play()
 
 func _on_body_exited(body: Node2D) -> void:
 	if body is Cat:
