@@ -1,21 +1,19 @@
+class_name Player
+
 extends CharacterBody2D
 
-@export var speed: float = 100.0
+@export var speed: float = 60.0
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var timer: Timer = $Timer
 
 const BRUSH = preload("res://scenes/brush.tscn")
 
-var numBrushes = 2
+var numBrushes := 1
 
 signal took_damage 
 
 func _ready() -> void:
-	for i in numBrushes:
-		var startTheta = i * 2.0 * PI / numBrushes
-		var newBrush = BRUSH.instantiate()
-		newBrush.theta = startTheta
-		add_child(newBrush)
+	spawn_brushes()
 
 func _physics_process(_delta: float) -> void:
 	# Get the input direction and handle the movement.
@@ -50,3 +48,13 @@ func take_damage(damage: int) -> void:
 	
 func _on_timer_timeout() -> void:
 	animated_sprite_2d.modulate = Color(1, 1, 1) # Reset color
+	
+func spawn_brushes():
+	for child in get_children():
+		if child is Area2D:
+			child.queue_free()
+	for i in numBrushes:
+		var startTheta = i * 2.0 * PI / numBrushes
+		var newBrush = BRUSH.instantiate()
+		newBrush.theta = startTheta
+		add_child(newBrush)

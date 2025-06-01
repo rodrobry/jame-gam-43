@@ -82,28 +82,38 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Health" type="Control" parent="UI"]
+[node name="HealthController" type="Control" parent="UI"]
 z_index = 5
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_tbgi4")
 
-[node name="Heart1" type="Sprite2D" parent="UI/Health"]
+[node name="Heart1" type="Sprite2D" parent="UI/HealthController"]
 texture_filter = 1
 position = Vector2(-177, -94)
 texture = ExtResource("2_tbgi4")
 
-[node name="Heart2" type="Sprite2D" parent="UI/Health"]
+[node name="Heart2" type="Sprite2D" parent="UI/HealthController"]
 texture_filter = 1
 position = Vector2(-159, -94)
 texture = ExtResource("2_tbgi4")
 
-[node name="Heart3" type="Sprite2D" parent="UI/Health"]
+[node name="Heart3" type="Sprite2D" parent="UI/HealthController"]
 texture_filter = 1
 position = Vector2(-140, -94)
 texture = ExtResource("2_tbgi4")
 
-[node name="Timer" type="Timer" parent="UI/Health"]
+[node name="Heart4" type="Sprite2D" parent="UI/HealthController"]
+texture_filter = 1
+position = Vector2(-121, -94)
+texture = ExtResource("2_tbgi4")
+
+[node name="Heart5" type="Sprite2D" parent="UI/HealthController"]
+texture_filter = 1
+position = Vector2(-102, -94)
+texture = ExtResource("2_tbgi4")
+
+[node name="Timer" type="Timer" parent="UI/HealthController"]
 
 [node name="ProgressBar" type="Control" parent="UI"]
 anchors_preset = 0
@@ -142,18 +152,21 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Upgrade1" parent="UI/UpgradeMenu" node_paths=PackedStringArray("upgrade_menu") instance=ExtResource("10_choun")]
+[node name="Upgrade1" parent="UI/UpgradeMenu" node_paths=PackedStringArray("upgrade_menu", "player") instance=ExtResource("10_choun")]
 position = Vector2(-100, 0)
 upgrade_menu = NodePath("..")
+player = NodePath("../../../Player")
 
-[node name="Upgrade2" parent="UI/UpgradeMenu" node_paths=PackedStringArray("upgrade_menu") instance=ExtResource("10_choun")]
+[node name="Upgrade2" parent="UI/UpgradeMenu" node_paths=PackedStringArray("upgrade_menu", "player") instance=ExtResource("10_choun")]
 upgrade_menu = NodePath("..")
 upgrade_type = 1
+player = NodePath("../../../Player")
 
-[node name="Upgrade3" parent="UI/UpgradeMenu" node_paths=PackedStringArray("upgrade_menu") instance=ExtResource("10_choun")]
+[node name="Upgrade3" parent="UI/UpgradeMenu" node_paths=PackedStringArray("upgrade_menu", "player") instance=ExtResource("10_choun")]
 position = Vector2(100, 0)
 upgrade_menu = NodePath("..")
 upgrade_type = 2
+player = NodePath("../../../Player")
 
 [node name="Spawner" type="Node" parent="."]
 script = ExtResource("1_jyhfs")
@@ -200,7 +213,7 @@ autoplay = "idle"
 
 [node name="Timer" type="Timer" parent="Player"]
 
-[connection signal="timeout" from="UI/Health/Timer" to="UI/Health" method="_on_timer_timeout"]
+[connection signal="timeout" from="UI/HealthController/Timer" to="UI/HealthController" method="_on_timer_timeout"]
 [connection signal="timeout" from="Spawner/Timer" to="Spawner" method="_on_timer_timeout"]
-[connection signal="took_damage" from="Player" to="UI/Health" method="_on_player_took_damage"]
+[connection signal="took_damage" from="Player" to="UI/HealthController" method="_on_player_took_damage"]
 [connection signal="timeout" from="Player/Timer" to="Player" method="_on_timer_timeout"]

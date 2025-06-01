@@ -1,5 +1,6 @@
-extends CharacterBody2D
 class_name Cat
+
+extends CharacterBody2D
 
 @export var speed: float = 25.0
 @export var attack_range: float = 15.0

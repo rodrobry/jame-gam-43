@@ -14,7 +14,7 @@ var spawn_rate := 1.5
 var current_wave := 1
 
 var waves = {
-	1:{"spawn_rate": 1.5, "enemies_in_wave": 5},
+	1:{"spawn_rate": 2, "enemies_in_wave": 5},
 	2:{"spawn_rate": 1.4, "enemies_in_wave": 10},
 	3:{"spawn_rate": 1.3, "enemies_in_wave": 15},
 	4:{"spawn_rate": 1.2, "enemies_in_wave": 20},
@@ -63,7 +63,8 @@ func generate_spawn_position() -> Vector2:
 	
 func _on_enemy_died():
 	dead_enemies += 1
-	var enemies_in_wave = waves[1]["enemies_in_wave"]
+	var enemies_in_wave = waves[current_wave]["enemies_in_wave"]
+	print(str(dead_enemies) + " / " + str(enemies_in_wave))
 	if dead_enemies >= enemies_in_wave:
 		Engine.time_scale = 0
 		upgrade_menu.visible = true
