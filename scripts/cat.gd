@@ -3,11 +3,11 @@ class_name Cat
 extends CharacterBody2D
 
 @export var speed: float = 25.0
-@export var attack_range: float = 15.0
+@export var attack_range: float = 20.0
 @onready var attack_timer: Timer = $Timer
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
-var player: CharacterBody2D
+@export var player: CharacterBody2D
 var life: int = 5
 var being_brushed = false
 var is_dying = false
@@ -21,12 +21,16 @@ func _physics_process(_delta: float) -> void:
 	if life <= 0:
 		die()
 		return
+		
+	# Check direction and distance towards player
+	var direction = (player.global_position - global_position).normalized()
+	var distance = global_position.distance_to(player.global_position)
+	
+	if attack_on_cooldown and distance <= attack_range * 2:
+		return
 	
 	# Change cat speed if being brushed
 	speed = 10.0 if being_brushed else 25.0
-	
-	# Check direction towards player
-	var direction = (player.global_position - global_position).normalized()
 	
 	# Flip Sprite
 	if direction.x >= 0:
@@ -35,7 +39,6 @@ func _physics_process(_delta: float) -> void:
 		animated_sprite_2d.flip_h = true
 	
 	# Attack if close enough, move if not
-	var distance = global_position.distance_to(player.global_position)
 	if distance < attack_range:
 		if !attack_on_cooldown:
 			attack()
@@ -101,5 +104,5 @@ func _on_fade_complete() -> void:
 	queue_free()
 
 func _on_animated_sprite_2d_frame_changed() -> void:
-	if animated_sprite_2d.animation == "attack" and animated_sprite_2d.frame == 3:
+	if animated_sprite_2d.animation == "attack" and animated_sprite_2d.frame == 2:
 		player.take_damage(1)

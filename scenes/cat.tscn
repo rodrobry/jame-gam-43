@@ -1,12 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://cewgvfogpcd4f"]
+[gd_scene load_steps=18 format=3 uid="uid://cewgvfogpcd4f"]
 
 [ext_resource type="Script" uid="uid://cvs5kk66x2s5t" path="res://scripts/cat.gd" id="1_se5fe"]
 [ext_resource type="Texture2D" uid="uid://d3ta0ufee3kf4" path="res://sprites/base_cat_sheet.png" id="2_se5fe"]
 [ext_resource type="Texture2D" uid="uid://y2lb25mru757" path="res://sprites/heart.png" id="3_t8pth"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_o55mh"]
-atlas = ExtResource("2_se5fe")
-region = Rect2(80, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ic5u8"]
 atlas = ExtResource("2_se5fe")
@@ -44,9 +40,6 @@ region = Rect2(64, 0, 16, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_o55mh")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_ic5u8")
 }, {
 "duration": 1.0,
@@ -60,7 +53,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"attack",
-"speed": 8.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -113,6 +106,8 @@ texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_o55mh")
 animation = &"attack"
 autoplay = "run"
+frame = 3
+frame_progress = 0.866692
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="AnimatedSprite2D"]
 texture_filter = 1
