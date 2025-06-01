@@ -12,19 +12,19 @@ enum Sides {RIGHT, TOP, LEFT, BOTTOM}
 var spawn_side : Sides
 var dead_enemies := 0
 var spawn_rate := 1.5
-var current_wave := 1
+var current_wave := 10
 
 var waves = {
-	1:{"spawn_rate": 2, "enemies_in_wave": 5},
-	2:{"spawn_rate": 1.5, "enemies_in_wave": 10},
-	3:{"spawn_rate": 1.0, "enemies_in_wave": 15},
-	4:{"spawn_rate": 0.75, "enemies_in_wave": 25},
-	5:{"spawn_rate": 0.5, "enemies_in_wave": 35},
-	6:{"spawn_rate": 0.375, "enemies_in_wave": 50},
-	7:{"spawn_rate": 0.25, "enemies_in_wave": 65},
-	8:{"spawn_rate": 0.1875, "enemies_in_wave": 85},
-	9:{"spawn_rate": 0.125, "enemies_in_wave": 105},
-	10:{"spawn_rate": 0.09375, "enemies_in_wave": 130},
+	1:{"spawn_rate": 2, "enemies_in_wave": 5, "enemy_speed_multiplier": 1},
+	2:{"spawn_rate": 1.5, "enemies_in_wave": 10, "enemy_speed_multiplier": 1.1},
+	3:{"spawn_rate": 1.0, "enemies_in_wave": 15, "enemy_speed_multiplier": 1.2},
+	4:{"spawn_rate": 0.75, "enemies_in_wave": 25, "enemy_speed_multiplier": 1.3},
+	5:{"spawn_rate": 0.5, "enemies_in_wave": 35, "enemy_speed_multiplier": 1.4},
+	6:{"spawn_rate": 0.375, "enemies_in_wave": 50, "enemy_speed_multiplier": 1.5},
+	7:{"spawn_rate": 0.25, "enemies_in_wave": 65, "enemy_speed_multiplier": 1.6},
+	8:{"spawn_rate": 0.1875, "enemies_in_wave": 85, "enemy_speed_multiplier": 1.7},
+	9:{"spawn_rate": 0.125, "enemies_in_wave": 105, "enemy_speed_multiplier": 1.8},
+	10:{"spawn_rate": 0.09375, "enemies_in_wave": 130, "enemy_speed_multiplier": 1.9},
 	}
 
 const CAT = preload("res://scenes/cat.tscn")
@@ -41,6 +41,10 @@ func spawn_enemy():
 	var enemy = CAT.instantiate()
 	enemy.global_position = generate_spawn_position()
 	enemy.player = player
+	print(enemy.speed)
+	enemy.speed *= waves[current_wave]["enemy_speed_multiplier"]
+	print(waves[current_wave]["enemy_speed_multiplier"])
+	print(enemy.speed * waves[current_wave]["enemy_speed_multiplier"])
 	add_child(enemy)
 	enemy.enemy_died.connect(_on_enemy_died)
 
