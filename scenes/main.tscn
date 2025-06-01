@@ -152,7 +152,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="Go Again" type="TextureButton" parent="UI/GameOverMenu"]
+[node name="GoAgain" type="TextureButton" parent="UI/GameOverMenu"]
 layout_mode = 0
 offset_left = -31.0
 offset_top = 60.0
@@ -160,7 +160,7 @@ offset_right = 33.0
 offset_bottom = 92.0
 texture_normal = ExtResource("6_85g3d")
 
-[node name="Label" type="Label" parent="UI/GameOverMenu/Go Again"]
+[node name="Label" type="Label" parent="UI/GameOverMenu/GoAgain"]
 z_index = 1
 texture_filter = 1
 layout_mode = 0
@@ -340,7 +340,7 @@ autoplay = "idle"
 [node name="Timer" type="Timer" parent="Player"]
 
 [connection signal="pressed" from="UI/VictoryMenu/GoAgain" to="UI/VictoryMenu" method="_on_go_again_pressed"]
-[connection signal="pressed" from="UI/GameOverMenu/Go Again" to="UI/GameOverMenu" method="_on_go_again_pressed"]
+[connection signal="pressed" from="UI/GameOverMenu/GoAgain" to="UI/GameOverMenu" method="_on_go_again_pressed"]
 [connection signal="pressed" from="UI/PauseMenu/Resume" to="UI/PauseMenu" method="_on_resume_pressed"]
 [connection signal="timeout" from="UI/HealthController/Timer" to="UI/HealthController" method="_on_timer_timeout"]
 [connection signal="timeout" from="Spawner/Timer" to="Spawner" method="_on_timer_timeout"]
