@@ -106,8 +106,6 @@ texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_o55mh")
 animation = &"attack"
 autoplay = "run"
-frame = 3
-frame_progress = 0.866692
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="AnimatedSprite2D"]
 texture_filter = 1
