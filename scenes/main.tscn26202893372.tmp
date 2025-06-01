@@ -1,5 +1,6 @@
 [gd_scene load_steps=33 format=4 uid="uid://dr0qixgnltvxf"]
 
+[ext_resource type="Script" uid="uid://bhao21k768dkx" path="res://scenes/main.gd" id="1_dp3eg"]
 [ext_resource type="Script" uid="uid://dwy3ddt05p4la" path="res://scripts/spawner.gd" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://c2ei25u4ahdmw" path="res://scripts/player.gd" id="1_sugp2"]
 [ext_resource type="Script" uid="uid://q6q1s6tvucth" path="res://scripts/health_controller.gd" id="1_tbgi4"]
@@ -8,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dxwyl8aoynfu2" path="res://sprites/base_tileset2.png" id="2_a8y0u"]
 [ext_resource type="Texture2D" uid="uid://y2lb25mru757" path="res://sprites/heart.png" id="2_tbgi4"]
 [ext_resource type="Script" uid="uid://cud4dns8wrwub" path="res://scripts/pause_menu.gd" id="2_ya4ey"]
-[ext_resource type="Script" uid="uid://cgtv43373q5nw" path="res://scripts/start_menu.gd" id="3_jbj1t"]
+[ext_resource type="Script" path="res://scenes/start_menu.gd" id="3_jbj1t"]
 [ext_resource type="Texture2D" uid="uid://k8qdrka7hnwr" path="res://sprites/base_human_sheet.png" id="3_sugp2"]
 [ext_resource type="Script" path="res://scripts/game_over_menu.gd" id="4_eb6dy"]
 [ext_resource type="FontFile" uid="uid://dl1bqdbya17ue" path="res://sprites/PixelOperator8.ttf" id="4_o6xl0"]
@@ -17,7 +18,6 @@
 [ext_resource type="PackedScene" uid="uid://bnwmc5pi1x2g7" path="res://scenes/upgrade.tscn" id="10_choun"]
 [ext_resource type="PackedScene" uid="uid://cewgvfogpcd4f" path="res://scenes/cat.tscn" id="15_jkv2x"]
 [ext_resource type="AudioStream" uid="uid://dxcer2yi71qyk" path="res://sfx/bgm.mp3" id="17_muem4"]
-[ext_resource type="Script" uid="uid://bvy41feba8sy3" path="res://scripts/music_player.gd" id="18_dp3eg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a8y0u"]
 texture = ExtResource("1_trceg")
@@ -96,6 +96,7 @@ animations = [{
 }]
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_dp3eg")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
@@ -133,7 +134,7 @@ offset_right = 192.0
 offset_bottom = 44.0
 theme_override_fonts/font = ExtResource("4_o6xl0")
 theme_override_font_sizes/font_size = 16
-text = "Use WASD or arrow keys to brush the onslaught of cats and calm their murderous spitrits"
+text = "Use WASD or arrow keys to brush the onslaught of cats and calm their murderous"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
@@ -436,13 +437,10 @@ autoplay = "idle"
 
 [node name="Timer" type="Timer" parent="Player"]
 
-[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
-process_mode = 3
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("17_muem4")
 volume_db = -25.0
-autoplay = true
 parameters/looping = false
-script = ExtResource("18_dp3eg")
 
 [connection signal="pressed" from="UI/StartMenu/Start" to="UI/StartMenu" method="_on_start_pressed"]
 [connection signal="pressed" from="UI/VictoryMenu/GoAgain" to="UI/VictoryMenu" method="_on_go_again_pressed"]
@@ -453,4 +451,3 @@ script = ExtResource("18_dp3eg")
 [connection signal="enemy_died" from="Spawner/Cat" to="Spawner" method="_on_enemy_died"]
 [connection signal="took_damage" from="Player" to="UI/HealthController" method="_on_player_took_damage"]
 [connection signal="timeout" from="Player/Timer" to="Player" method="_on_timer_timeout"]
-[connection signal="finished" from="MusicPlayer" to="MusicPlayer" method="_on_finished"]

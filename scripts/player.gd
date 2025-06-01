@@ -58,15 +58,24 @@ func spawn_brushes():
 	#Spawn new brushes
 	var ring = 1
 	var ring_capacity = 3
+	var remainingBrushes = numBrushes
+	var divisions = min(remainingBrushes, ring_capacity)
+	var j = 0
+	
 	for i in numBrushes:
-		if i + 1 > ring_capacity:
+		if j + 1 > ring_capacity:
+			j = 0
 			ring += 1
-			ring_capacity = ring_capacity * ring + 1
-		var offset = i * 2.0 * PI / (ring_capacity)
+			remainingBrushes -= ring_capacity
+			ring_capacity = ring_capacity * 2 + 1
+			divisions = min(remainingBrushes, ring_capacity)
+
+		var offset = j * 2.0 * PI / divisions
+		j += 1
+
 		var newBrush = BRUSH.instantiate()
 		if ring % 2 == 0:
-			newBrush.speed = newBrush.speed * -1
+			newBrush.speed *= -1
 		newBrush.radius = ring * 30
 		newBrush.arch_offset = offset
-		newBrush.arch_length = PI / numBrushes
 		add_child(newBrush)
