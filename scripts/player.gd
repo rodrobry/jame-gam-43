@@ -56,13 +56,17 @@ func spawn_brushes():
 			child.queue_free()
 			
 	#Spawn new brushes
-	var count = 1
+	var ring = 1
+	var ring_capacity = 3
 	for i in numBrushes:
-		if i > 2 * count:
-			count += 1
-		var offset = (i - floor(numBrushes * 0.5)) * 2.0 * PI / numBrushes
+		if i + 1 > ring_capacity:
+			ring += 1
+			ring_capacity = ring_capacity * ring + 1
+		var offset = i * 2.0 * PI / (ring_capacity)
 		var newBrush = BRUSH.instantiate()
-		newBrush.radius += count * 16
+		if ring % 2 == 0:
+			newBrush.speed = newBrush.speed * -1
+		newBrush.radius = ring * 30
 		newBrush.arch_offset = offset
 		newBrush.arch_length = PI / numBrushes
 		add_child(newBrush)
