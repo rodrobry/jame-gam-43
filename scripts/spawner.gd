@@ -5,6 +5,8 @@ extends Node
 @onready var texture_progress_bar: TextureProgressBar = $"../UI/ProgressBar/TextureProgressBar"
 @onready var wave_label: Label = $"../UI/ProgressBar/WaveLabel"
 @onready var upgrade_menu: Control = $"../UI/UpgradeMenu"
+@onready var victory_menu: Control = $"../UI/VictoryMenu"
+
 
 enum Sides {RIGHT, TOP, LEFT, BOTTOM}
 
@@ -67,10 +69,11 @@ func _on_enemy_died():
 	print(str(dead_enemies) + " / " + str(enemies_in_wave))
 	if dead_enemies >= enemies_in_wave:
 		get_tree().paused = true
-		upgrade_menu.visible = true
 		current_wave += 1
 		if current_wave > 10:
-			print("You won!")
+			victory_menu.visible = true
+			return
+		upgrade_menu.visible = true
 		dead_enemies = 0
 		wave_label.text = "Wave: " + str(current_wave)
 	texture_progress_bar.value = dead_enemies * 100 / enemies_in_wave

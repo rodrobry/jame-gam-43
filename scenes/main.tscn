@@ -1,11 +1,13 @@
-[gd_scene load_steps=20 format=3 uid="uid://dr0qixgnltvxf"]
+[gd_scene load_steps=22 format=3 uid="uid://dr0qixgnltvxf"]
 
 [ext_resource type="Script" uid="uid://dwy3ddt05p4la" path="res://scripts/spawner.gd" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://c2ei25u4ahdmw" path="res://scripts/player.gd" id="1_sugp2"]
 [ext_resource type="Script" uid="uid://q6q1s6tvucth" path="res://scripts/health_controller.gd" id="1_tbgi4"]
+[ext_resource type="Script" uid="uid://xw2jq803fc1k" path="res://scripts/victory_menu.gd" id="1_ya4ey"]
 [ext_resource type="Texture2D" uid="uid://y2lb25mru757" path="res://sprites/heart.png" id="2_tbgi4"]
 [ext_resource type="Script" uid="uid://cud4dns8wrwub" path="res://scripts/pause_menu.gd" id="2_ya4ey"]
 [ext_resource type="Texture2D" uid="uid://k8qdrka7hnwr" path="res://sprites/base_human_sheet.png" id="3_sugp2"]
+[ext_resource type="Script" uid="uid://dijhlhgrxy2qi" path="res://scripts/game_over_menu.gd" id="4_eb6dy"]
 [ext_resource type="FontFile" uid="uid://dl1bqdbya17ue" path="res://sprites/PixelOperator8.ttf" id="4_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://fki7o6c2f04a" path="res://sprites/rectangle_white_long.png" id="6_85g3d"]
 [ext_resource type="Texture2D" uid="uid://drd177qpt7mnx" path="res://sprites/rectangle_blue_long.png" id="7_choun"]
@@ -80,6 +82,96 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="VictoryMenu" type="Control" parent="UI"]
+process_mode = 3
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_ya4ey")
+
+[node name="VictoryMessage" type="Label" parent="UI/VictoryMenu"]
+texture_filter = 1
+layout_mode = 0
+offset_left = -167.0
+offset_top = -41.0
+offset_right = 180.0
+offset_bottom = 32.0
+theme_override_fonts/font = ExtResource("4_o6xl0")
+theme_override_font_sizes/font_size = 16
+text = "Hurray!!!
+
+You survived the cat overflow!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="GoAgain" type="TextureButton" parent="UI/VictoryMenu"]
+layout_mode = 0
+offset_left = -31.0
+offset_top = 60.0
+offset_right = 33.0
+offset_bottom = 92.0
+texture_normal = ExtResource("6_85g3d")
+
+[node name="Label" type="Label" parent="UI/VictoryMenu/GoAgain"]
+z_index = 1
+texture_filter = 1
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 32.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_o6xl0")
+theme_override_font_sizes/font_size = 8
+text = "Go Again"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameOverMenu" type="Control" parent="UI"]
+process_mode = 3
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_eb6dy")
+
+[node name="GameOverMessage" type="Label" parent="UI/GameOverMenu"]
+texture_filter = 1
+layout_mode = 0
+offset_left = -166.0
+offset_top = -45.0
+offset_right = 181.0
+offset_bottom = 28.0
+theme_override_fonts/font = ExtResource("4_o6xl0")
+theme_override_font_sizes/font_size = 16
+text = "Loser!!!
+
+You could not withstand the cat overflow..."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Go Again" type="TextureButton" parent="UI/GameOverMenu"]
+layout_mode = 0
+offset_left = -31.0
+offset_top = 60.0
+offset_right = 33.0
+offset_bottom = 92.0
+texture_normal = ExtResource("6_85g3d")
+
+[node name="Label" type="Label" parent="UI/GameOverMenu/Go Again"]
+z_index = 1
+texture_filter = 1
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 32.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_o6xl0")
+theme_override_font_sizes/font_size = 8
+text = "Go Again"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PauseMenu" type="Control" parent="UI"]
 process_mode = 3
@@ -243,6 +335,8 @@ autoplay = "idle"
 
 [node name="Timer" type="Timer" parent="Player"]
 
+[connection signal="pressed" from="UI/VictoryMenu/GoAgain" to="UI/VictoryMenu" method="_on_go_again_pressed"]
+[connection signal="pressed" from="UI/GameOverMenu/Go Again" to="UI/GameOverMenu" method="_on_go_again_pressed"]
 [connection signal="pressed" from="UI/PauseMenu/Resume" to="UI/PauseMenu" method="_on_resume_pressed"]
 [connection signal="timeout" from="UI/HealthController/Timer" to="UI/HealthController" method="_on_timer_timeout"]
 [connection signal="timeout" from="Spawner/Timer" to="Spawner" method="_on_timer_timeout"]

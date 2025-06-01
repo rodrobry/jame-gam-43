@@ -6,6 +6,7 @@ extends Control
 @onready var heart_4: Sprite2D = $Heart4
 @onready var heart_5: Sprite2D = $Heart5
 @onready var timer: Timer = $Timer
+@onready var game_over_menu: Control = $"../GameOverMenu"
 
 var health = 5
 
@@ -44,4 +45,5 @@ func update_ui():
 
 func _on_timer_timeout() -> void:
 	Engine.time_scale = 1
-	get_tree().reload_current_scene()
+	get_tree().paused = true
+	game_over_menu.visible = true
