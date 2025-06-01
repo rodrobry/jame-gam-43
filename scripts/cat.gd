@@ -6,6 +6,7 @@ extends CharacterBody2D
 @export var attack_range: float = 5.0
 @onready var attack_timer: Timer = $Timer
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 @export var player: CharacterBody2D
 var life: int = 5
@@ -49,7 +50,7 @@ func _physics_process(_delta: float) -> void:
 	
 func attack():
 	animated_sprite_2d.play("attack")
-	attack_timer.start(1.2)
+	attack_timer.start(0.5)
 	attack_on_cooldown = true
 	
 func distance_to_capsule(pos: Vector2, height: float, radius: float) -> float:
@@ -111,3 +112,7 @@ func _on_animated_sprite_2d_frame_changed() -> void:
 	if animated_sprite_2d != null:
 		if animated_sprite_2d.animation == "attack" and animated_sprite_2d.frame == 2:
 			player.take_damage(1)
+			audio_stream_player_2d.pitch_scale = randf_range(0.85, 1.25)
+			audio_stream_player_2d.play()
+		if animated_sprite_2d.animation == "attack" and animated_sprite_2d.frame == 3:
+			animated_sprite_2d.play("stopped")

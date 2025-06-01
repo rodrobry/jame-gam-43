@@ -17,12 +17,10 @@ func _ready():
 	attack()
 	
 func _process(delta: float) -> void:
-	# Move around:
-	#var mousePos = (get_global_mouse_position() - get_parent().global_position).normalized()
 	
-	position = radius * Vector2(1.0, 0.0).rotated(arch_offset + sin(theta) * arch_length)
+	position = radius * Vector2(1.0, 0.0).rotated(arch_offset + theta * arch_length)
 	theta += speed * delta 
-	theta = fmod(theta, 2 * PI)
+	#theta = fmod(theta, 2 * PI)
 	
 	# Emit dust particles if there are cats being brushed
 	if cats_being_brushed.size() > 0:
@@ -34,10 +32,12 @@ func _on_body_entered(body: Node2D) -> void:
 	if body is Cat:
 		#attack()
 		body.take_damage(damage)
+		audio_stream_player_2d.pitch_scale = randf_range(0.85, 1.25)
+		audio_stream_player_2d.volume_db = randf_range(-10.0, -5.0)
+		audio_stream_player_2d.play()
 		if body.life > 0:
 			body.being_brushed = true
 			cats_being_brushed.append(body)
-			audio_stream_player_2d.play()
 
 func _on_body_exited(body: Node2D) -> void:
 	if body is Cat:

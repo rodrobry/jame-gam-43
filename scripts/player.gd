@@ -8,7 +8,7 @@ extends CharacterBody2D
 
 const BRUSH = preload("res://scenes/brush.tscn")
 
-var numBrushes := 1
+var numBrushes := 5
 
 signal took_damage 
 
@@ -56,9 +56,13 @@ func spawn_brushes():
 			child.queue_free()
 			
 	#Spawn new brushes
+	var count = 1
 	for i in numBrushes:
+		if i > 2 * count:
+			count += 1
 		var offset = (i - floor(numBrushes * 0.5)) * 2.0 * PI / numBrushes
 		var newBrush = BRUSH.instantiate()
+		newBrush.radius += count * 16
 		newBrush.arch_offset = offset
 		newBrush.arch_length = PI / numBrushes
 		add_child(newBrush)
