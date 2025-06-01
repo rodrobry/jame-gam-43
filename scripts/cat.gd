@@ -30,7 +30,7 @@ func _physics_process(_delta: float) -> void:
 	var direction = (player.global_position - global_position).normalized()
 	var distance = distance_to_capsule(global_position - player.global_position, 16, 6)
 	
-	if attack_on_cooldown and distance <= attack_range * 2:
+	if attack_on_cooldown and distance <= attack_range * 1.5:
 		return
 	
 	# Change cat speed if being brushed
