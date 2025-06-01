@@ -15,6 +15,8 @@ var is_dying = false
 var attack_on_cooldown := false
 var exit_direction = Vector2.ZERO
 
+var purr_sound = preload("res://sfx/cat_purr_sound.wav")
+
 signal enemy_died
 
 func _physics_process(_delta: float) -> void:
@@ -62,6 +64,10 @@ func die():
 	# Emit death signal once
 	if !is_dying:
 		$AnimatedSprite2D/GPUParticles2D.emitting = true
+		audio_stream_player_2d.stream = purr_sound
+		audio_stream_player_2d.volume_db = randf_range(-10.0, -5.0)
+		audio_stream_player_2d.pitch_scale = randf_range(0.85, 1.0)
+		audio_stream_player_2d.play()
 		enemy_died.emit()
 		is_dying = true
 	
